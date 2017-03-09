@@ -311,7 +311,7 @@ def create_asset(args):
         tar.add(tmpdir+"/resources", "/")
     asset_tarball_id = _upload_file(image_tarball, project_id, folder_path)
     record_name = args.image
-    record_details = {"archiveFileId": {"$dnanexus_link": {"project": project_id, "id": asset_tarball_id}}}
+    record_details = {"archiveFileId": {"$dnanexus_link": asset_tarball_id}}
     record_properties = {
                           "title": dxasset["title"],
                           "description": dxasset["description"],
