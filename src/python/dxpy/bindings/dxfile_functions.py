@@ -165,7 +165,7 @@ def _download_dxfile(dxid, filename, part_retry_counter,
     if isinstance(dxid, DXFile):
         dxfile = dxid
     else:
-        dxfile = DXFile(dxid, mode="r")
+        dxfile = DXFile(dxid, mode="r", project=project)
 
     dxfile_desc = dxfile.describe(fields={"parts"}, default_fields=True, **kwargs)
     parts = dxfile_desc["parts"]
