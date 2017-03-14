@@ -103,7 +103,7 @@ def download_dxfile(dxid, filename, chunksize=dxfile.DEFAULT_BUFFER_SIZE, append
     :type append: boolean
     :param project: project to use as context for this download (may affect
             which billing account is billed for this download). If None or
-            DXFile.NO_PROJECT_HINT, no project hint is supplied to the API server. 
+            DXFile.NO_PROJECT_HINT, no project hint is supplied to the API server.
     :type project: str or None
 
 
