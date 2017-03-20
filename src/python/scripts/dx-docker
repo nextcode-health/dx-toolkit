@@ -85,7 +85,7 @@ def retry(tries=3, delay=1, backoff=2, retry_on_exceptions=None):
                 try:
                     f(*args, **kwargs)
                 except retry_on_exceptions as retry_exception:
-                    print "Error. Retrying in {} s".format(mdelay)
+                    sys.stderr.write(dxpy.utils.printing.YELLOW("Error. Retrying in {} s.\n".format(mdelay)))
                     time.sleep(mdelay)
                     mdelay *= backoff
                     if i == tries - 1:
