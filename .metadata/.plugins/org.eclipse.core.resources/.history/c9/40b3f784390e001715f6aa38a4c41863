@@ -190,13 +190,14 @@ public class DXHTTPRequest {
          String proxyHost = System.getProperty("https.proxyHost");
          String proxyPort = System.getProperty("https.proxyPort");
          if(proxyHost == null || proxyHost ==null) { 
-        	 this.httpclient = HttpClientBuilder.create().setUserAgent(USER_AGENT).build();
-         } else {
+         
         	 HttpHost proxy = new HttpHost(System.getProperty("https.proxyHost"), Integer.parseInt(System.getProperty("https.proxyPort")));
 	         httpClientBuilder.setProxy(proxy);
 	         HttpRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
 	         httpClientBuilder.setRoutePlanner(routePlanner).setSSLSocketFactory(sslSF);
 	         httpclient = httpClientBuilder.setUserAgent(USER_AGENT).build();
+         } else {
+        	 this.httpclient = HttpClientBuilder.create().setUserAgent(USER_AGENT).build();
          }
     }
 
