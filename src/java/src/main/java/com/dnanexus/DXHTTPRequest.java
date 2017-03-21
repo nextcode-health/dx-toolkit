@@ -18,15 +18,24 @@ package com.dnanexus;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.routing.HttpRoutePlanner;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.util.EntityUtils;
 
 import com.dnanexus.exceptions.DXAPIException;
@@ -147,10 +156,34 @@ public class DXHTTPRequest {
      * Construct the DXHTTPRequest using the given DXEnvironment.
      */
     public DXHTTPRequest(DXEnvironment env) {
-        this.securityContext = env.getSecurityContextJson();
-        this.apiserver = env.getApiserverPath();
-        this.disableRetry = env.isRetryDisabled();
-        this.httpclient = HttpClientBuilder.create().setUserAgent(USER_AGENT).build();
+    	 this.securityContext = env.getSecurityContextJson();
+         this.apiserver = env.getApiserverPath();
+         this.disableRetry = env.isRetryDisabled();
+
+         SSLContextBuilder builder = new SSLContextBuilder();
+         try {
+             builder.loadTrustMaterial(null, (chain, authType) -> true);
+         } catch (NoSuchAlgorithmException e) {
+             e.printStackTrace();
+         } catch (KeyStoreException e) {
+             e.printStackTrace();
+         }
+
+         SSLConnectionSocketFactory sslSF = null;
+         try {
+             sslSF = new SSLConnectionSocketFactory(builder.build(),
+                     SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+         } catch (NoSuchAlgorithmException e) {
+             e.printStackTrace();
+         } catch (KeyManagementException e) {
+             e.printStackTrace();
+         }
+         HttpClientBuilder httpClientBuilder = HttpClients.custom().useSystemProperties();
+         HttpHost proxy = new HttpHost(System.getProperty("https.proxyHost"), Integer.parseInt(System.getProperty("https.proxyPort")));
+         httpClientBuilder.setProxy(proxy);
+         HttpRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
+         httpClientBuilder.setRoutePlanner(routePlanner).setSSLSocketFactory(sslSF);
+         httpclient = httpClientBuilder.setUserAgent(USER_AGENT).build();
     }
 
     /**
