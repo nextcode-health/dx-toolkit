@@ -187,19 +187,12 @@ public class DXHTTPRequest {
              e.printStackTrace();
          }
          HttpClientBuilder httpClientBuilder = HttpClients.custom().useSystemProperties();
-         String proxyHost = System.getProperty("http.proxyHost");
-         String proxyPort = System.getProperty("http.proxyPort");
-         String proxyHostS = System.getProperty("https.proxyHost");
-         String proxyPortS = System.getProperty("https.proxyPort");
-         if((proxyHost == null || proxyHost ==null) && (proxyHostS == null || proxyPortS == null)) { 
+         String proxyHost = System.getProperty("https.proxyHost");
+         String proxyPort = System.getProperty("https.proxyPort");
+         if(proxyHost == null || proxyHost ==null) { 
         	 this.httpclient = HttpClientBuilder.create().setUserAgent(USER_AGENT).build();
          } else {
-        	 HttpHost proxy = null;
-        	 if(proxyHostS != null && proxyPortS != null) {
-        		 proxy = new HttpHost(proxyHostS, Integer.parseInt(proxyPortS));
-        	 } else {
-        		 proxy = new HttpHost(proxyHost, Integer.parseInt(proxyPort));
-        	 }
+        	 HttpHost proxy = new HttpHost(System.getProperty("https.proxyHost"), Integer.parseInt(System.getProperty("https.proxyPort")));
 	         httpClientBuilder.setProxy(proxy);
 	         HttpRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
 	         httpClientBuilder.setRoutePlanner(routePlanner).setSSLSocketFactory(sslSF);
