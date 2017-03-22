@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.apache.http.conn.ssl.SSLContextBuilder"/>
+<fullyQualifiedTypeName name="java.security.NoSuchAlgorithmException"/>
+<fullyQualifiedTypeName name="java.security.KeyStoreException"/>
+<fullyQualifiedTypeName name="org.apache.http.conn.ssl.SSLConnectionSocketFactory"/>
+<fullyQualifiedTypeName name="java.security.KeyManagementException"/>
+<fullyQualifiedTypeName name="org.apache.http.impl.client.HttpClients"/>
+<fullyQualifiedTypeName name="org.apache.http.HttpHost"/>
+<fullyQualifiedTypeName name="org.apache.http.conn.routing.HttpRoutePlanner"/>
+<fullyQualifiedTypeName name="org.apache.http.impl.conn.DefaultProxyRoutePlanner"/>
+<fullyQualifiedTypeName name="org.apache.http.conn.ssl.TrustStrategy"/>
+<fullyQualifiedTypeName name="java.security.cert.X509Certificate"/>
+<fullyQualifiedTypeName name="java.security.cert.CertificateException"/>
+</qualifiedTypeNameHistroy>

@@ -191,7 +191,7 @@ public class DXHTTPRequest {
          String proxyPort = System.getProperty("http.proxyPort");
          String proxyHostS = System.getProperty("https.proxyHost");
          String proxyPortS = System.getProperty("https.proxyPort");
-         if((proxyHost == null || proxyHost ==null) && (proxyHostS == null || proxyPortS == null)) { 
+         if((proxyHost == null || proxyPort ==null) && (proxyHostS == null || proxyPortS == null)) { 
         	 this.httpclient = HttpClientBuilder.create().setUserAgent(USER_AGENT).build();
          } else {
         	 HttpHost proxy = null;
